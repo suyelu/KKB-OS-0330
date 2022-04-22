@@ -14,4 +14,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <semaphore.h>
+#include "common.h"
+#include "sem.h"
+
 #endif
