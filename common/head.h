@@ -15,7 +15,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <pthread.h>
+#include <time.h>
+#include "color.h"
 #include "common.h"
 #include "sem.h"
-
+#ifdef _D
+#define DBG(fmt, args...) printf(fmt, ##args)
+#else
+#define DBG(fmt, args...)
+#endif
 #endif

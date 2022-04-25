@@ -8,4 +8,5 @@
 #ifndef COMMON_H
 #define COMMON_H
 void perror_exit(const char *msg);
+void rsleep(double secs);
 #endif

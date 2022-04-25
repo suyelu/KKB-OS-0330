@@ -10,3 +10,10 @@ void perror_exit(const char *msg) {
     perror(msg);
     exit(1);
 }
+
+void rsleep(double secs) {
+    long max = secs * 1000000;
+    srand((unsigned)time(NULL));
+    long value = rand();
+    usleep(value % max);
+}
