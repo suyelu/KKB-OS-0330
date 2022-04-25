@@ -9,17 +9,20 @@ int *buff;
 int opt, p_num = 1, c_num = 1, buffsize = 100, now = 0, buff_now = 0;
 void *producer_work(void *arg);
 void *consumer_work(void *arg);
-semaphore mutex, full, empty;
+semaphore mutex, full, empty; //定义信号量
+
 void usage(char *arg0){
     fprintf(stderr, "Usage : %s -p num -c num\n", arg0);
     exit(1);
 }
+
 int main(int argc, char **argv) {
     if (argc < 7) usage(argv[0]);
+   // 0 1 2
     while ((opt = getopt(argc, argv, "p:c:b:")) != -1) {
         switch (opt) {
             case 'p':
-                p_num = atoi(optarg);
+                p_num = atoi(optarg); // option arg
                 break;
             case 'c':
                 c_num = atoi(optarg);
@@ -40,7 +43,7 @@ int main(int argc, char **argv) {
     buff = (int *)calloc(buffsize, sizeof(int));
 
     for (int i = 0; i < p_num; i++) {
-        pthread_t tid;
+        pthread_t tid; //pcb -> pid // tcb -> tid 
         pthread_create(&tid, NULL, producer_work, NULL);
     }
 
@@ -61,6 +64,7 @@ int main(int argc, char **argv) {
 void *producer_work(void *arg) {
     while (1) {
         rsleep(0.5);
+        DBG(YELLOW"生产了一个商品"NONE);
         P(empty);
         P(mutex);
         buff[buff_now++] = now++;
